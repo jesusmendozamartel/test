@@ -1,0 +1,115 @@
+<STYLE>
+BODY
+{
+    FONT-SIZE: 9px;
+    MARGIN: 0px;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+    BACKGROUND-COLOR: #ffffff;
+	background-image: url(Imagenes/fdopag.jpg);
+}
+TABLE.tabla1
+{
+    BORDER-RIGHT: #dadbdb 1px solid;
+    BORDER-TOP: #dadbdb 1px solid;
+    BORDER-LEFT: #dadbdb 1px solid;
+    BORDER-BOTTOM: #dadbdb 1px solid;
+    BORDER-COLLAPSE: collapse;
+    border-spacing: 0; 
+	
+}
+TABLE.tabla1 TD
+{
+    BORDER-RIGHT: #D0D7E5 1px solid;
+    BORDER-TOP: #D0D7E5 1px solid;
+    BORDER-LEFT: #D0D7E5 1px solid;
+    BORDER-BOTTOM: #D0D7E5 1px solid;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	white-space:nowrap;
+	PADDING-RIGHT: 5px;
+    PADDING-LEFT: 5px;
+	
+}
+TABLE.tabla1 TH
+{
+    BORDER-RIGHT: #63a7de 1px solid;
+    PADDING-RIGHT: 5px;
+    BORDER-TOP: #63a7de 1px solid;
+    PADDING-LEFT: 5px;
+    BACKGROUND: #63a7de;
+    PADDING-BOTTOM: 5px;
+    BORDER-LEFT: #63a7de 1px solid;
+    PADDING-TOP: 5px;
+    BORDER-BOTTOM: #63a7de 1px solid;
+    HEIGHT: 20px
+}
+	
+#blocker {
+
+            Z-INDEX: 2000;
+            BACKGROUND:#000000; /*: #000; */
+            FILTER: alpha(opacity=30);
+            LEFT: 0px;
+            WIDTH: 100%;
+            POSITION: absolute;
+            TOP: 0px;
+            HEIGHT: 100%;
+            opacity: 0.2;
+            moz-opacity: 0;
+			}
+
+TABLE.tabla3
+{
+    BORDER-RIGHT: #dae5e8 2px solid;
+    BORDER-TOP: #dae5e8 2px solid;
+    BORDER-LEFT: #dae5e8 2px solid;
+    BORDER-BOTTOM: #dae5e8 2px solid;
+    BORDER-COLLAPSE: collapse;
+	border-spacing: 1
+}
+TABLE.tabla3 TD
+{
+    BORDER-RIGHT: #dae5e8 1px solid;
+    BORDER-TOP: #dae5e8 1px solid;
+    PADDING-LEFT: 0.3em;
+    FONT-SIZE: 10px;
+    VERTICAL-ALIGN: middle;
+    BORDER-LEFT: #dae5e8 1px solid;
+    BORDER-BOTTOM: #dae5e8 1px solid;
+    FONT-FAMILY: Arial, Verdana, sans-serif;
+    HEIGHT: 20px
+}
+TABLE.tabla3 TD.cabecera
+{
+    BORDER-RIGHT: #0099cc 1px solid;
+    BORDER-TOP: #0099cc 1px solid;
+    BORDER-LEFT: #0099cc 1px solid;
+    BORDER-BOTTOM: #0099cc 1px solid
+}
+TABLE.tabla3 TH
+{
+    BORDER-RIGHT: #dae5e8 1px solid;
+    PADDING-RIGHT: 5px;
+    BORDER-TOP: #dae5e8 1px solid;
+    PADDING-LEFT: 5px;
+    FONT-SIZE: 9px;
+    BACKGROUND: #63a7de;
+    PADDING-BOTTOM: 5px;
+    BORDER-LEFT: #dae5e8 1px solid;
+    COLOR: black;
+    PADDING-TOP: 5px;
+    BORDER-BOTTOM: #dae5e8 1px solid;
+    BACKGROUND-REPEAT: repeat;
+    FONT-FAMILY: Arial, Verdana, sans-serif;
+	height: 70px
+    /*HEIGHT: 76px*/
+}
+TABLE.tabla3 TR
+{
+    BORDER-RIGHT: #dae5e8 1px solid;
+    BORDER-TOP: #dae5e8 1px solid;
+    BORDER-LEFT: #dae5e8 1px solid;
+    BORDER-BOTTOM: #dae5e8 1px solid;
+    HEIGHT: 20px
+}
+</STYLE>

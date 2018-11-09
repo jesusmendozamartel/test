@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>.:DNCN-INEI:.Sistema de Consultas SMV</title>
+<style type="text/css">
+hr.linea { 
+height: 1px;
+border: 0;
+color: #0066CC;
+background-color: #333333;
+width: 100%;
+} 
+body {
+	margin-left: 30px;
+	margin-top: 10px;
+	margin-right: 30px;
+	margin-bottom: 0px;
+}
+input.boton{
+font-family:Arial, Helvetica, sans-serif; 
+font-size:12px; 
+border-bottom-color:#A8B5BE; 
+border-top-color:#A8B5BE; 
+border-left-color:#A8B5BE; 
+border-right-color:#A8B5BE;  
+height:22px; 
+width: 60px; 
+border-bottom: solid 1px; 
+border-top: solid 1px; 
+border-right: solid 1px; 
+border-left: solid 1px; 
+background:#D3E1EA; 
+color:#000000
+}
+input.caja{
+font-family:Arial, Helvetica, sans-serif; 
+font-size:12px; 
+border-bottom-color:#A8B5BE; 
+border-top-color:#A8B5BE; 
+border-left-color:#A8B5BE; 
+border-right-color:#A8B5BE;  
+height:18px; 
+width: 100px; 
+border-bottom: solid 1px; 
+border-top: solid 1px; 
+border-right: solid 1px; 
+border-left: solid 1px; 
+background:#ffffff; 
+color:#000000
+}
+input.caja2{
+font-family:Arial, Helvetica, sans-serif; 
+font-size:12px; 
+border-bottom-color:#A8B5BE; 
+border-top-color:#A8B5BE; 
+border-left-color:#A8B5BE; 
+border-right-color:#A8B5BE;  
+height:18px; 
+width: 100px; 
+border-bottom: solid 1px; 
+border-top: solid 1px; 
+border-right: solid 1px; 
+border-left: solid 1px; 
+background:#ffffff; 
+color:#ffffff
+}
+</style>
+<script language="javascript" type="text/javascript">
+function Validar()
+{
+	if (document.form1.txtUser.value=="") 
+	{ 	alert('Debe ingresar el Usuario'); document.form1.txtUser.focus();return; }
+	if (document.form1.txtPass.value=="")
+	{ 	alert('Debe ingresar la Contraseña'); document.form1.txtPass.focus();return; }
+	document.form1.action='validaUsuario.asp?aplicacion=Sistema de Consulta SMV&pag=principal.asp';
+	//document.form1.target='cuerpo';
+	document.form1.submit();
+}	
+</script>
+</head>
+
+<body onload="javascript:document.form1.txtUser.focus();">
+<p align="center" style="font-family:Arial, Helvetica, sans-serif; font-size:18px; color: #0066CC">Bienvenido al Sistema de Consultas - SMV   </p>
+<Hr class="linea" >
+<p>&nbsp;</p>
+<form name="form1" id="form1" action="aaa" method="post" >
+<table width="425" height="253" border="0" align="center" cellpadding="0" cellspacing="0" background="imagenes/conasev.gif">
+  <tr>
+    <td height="252"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="45%" height="149">&nbsp;</td>
+        <td width="55%"><table width="100%" border="0" cellpadding="0" cellspacing="4" bordercolor="#0066CC">
+          <tr>
+            <td width="42%" align="right"><a style="font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#0066CC">Usuario :</a></td>
+            <td width="58%"><input  name="txtUser" type="text" id="txtUser" class="caja" onkeypress="if(event.keyCode==13){document.form1.txtPass.focus();}" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#0066CC; height:18px; width: 100px; border-bottom: solid 1px; border-top: solid 1px; border-right: solid 1px; border-left: solid 1px "/></td>
+          </tr>
+          <tr>
+            <td align="right"><a style="font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#0066CC">Contrase&ntilde;a :</a></td>
+            <td><input name="txtPass" type="password" id="txtPass" class="caja2"   onkeypress="if(event.keyCode==13){document.form1.btnAceptar.click();}"  style="font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#0066CC; height:18px; width: 100px; border-bottom: solid 1px; border-top: solid 1px; border-right: solid 1px; border-left: solid 1px "/></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><input name="btnAceptar" type="button" id="btnAceptar" class="boton" value="Aceptar" onclick="Validar()" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; border-bottom-color:#0066CC; border-top-color:#0066CC; border-left-color:#0066CC; border-right-color:#0066CC;  height:22px; width: 60px; border-bottom: solid 1px; border-top: solid 1px; border-right: solid 1px; border-left: solid 1px; background:#7DB2C8; color:#0066CC "/></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>  
+</form>
+<p>&nbsp;</p>
+
+<Hr class="linea" >
+<center>
+  <p style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#A8B5BE">______________________________________________<br />
+    <br />
+    Av. Gral. Garz&oacute;n 654 - 658<br />
+    Jes&uacute;s Mar&iacute;a Lima-Per&uacute; <br />
+      <br />
+&copy; Copyright DNCN -   INEI</p>
+</center>
+</body>
+</html>
