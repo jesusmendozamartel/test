@@ -155,20 +155,21 @@ TD.cab
 <body >
 <%
 dim Tabla(5000,5000)
-dim Tabla1(5000,2000)
-Response.Charset= "ISO-8859-1" 
+	dim Tabla1(5000,2000)
+	Response.Charset= "ISO-8859-1" 
 	annio=Request.QueryString("annio")
 	trime=Request.QueryString("trime")
 	moneda=Request.QueryString("moneda")
 	detalle=Request.QueryString("detalle")
 	TipFondo=Request.QueryString("TipFondo")
 
-	detText=Request.QueryString("detText")
-	xdetFondo=Request.QueryString("xdetFondo")	
-	
 	SQL01=" exec sp_lista_cuentas_RepAnioTrim_FONDOS '01','"&annio&"','"&trime&"','','"&detalle&"','"&TipFondo&"'"
 	SQL02=" exec sp_lista_cuentas_RepAnioTrim_FONDOS '02','"&annio&"','"&trime&"','','"&detalle&"','"&TipFondo&"'"
 	SQL03=" exec sp_lista_cuentas_RepAnioTrim_FONDOS '03','"&annio&"','"&trime&"','','"&detalle&"','"&TipFondo&"'"
+	'response.Write(SQL01)
+	'response.Write(SQL02)
+	'response.Write(SQL03)
+	'response.End()
 
 	Set rs01 = Server.CreateObject("ADODB.Recordset")
 	rs01.CursorLocation=3
@@ -181,6 +182,7 @@ Response.Charset= "ISO-8859-1"
 	Set rs03 = Server.CreateObject("ADODB.Recordset")	
 	rs03.CursorLocation=3
 	rs03.Open SQL03, con
+
 
 	monedaText=moneda
 	if moneda ="Total" then
@@ -219,6 +221,7 @@ Response.Charset= "ISO-8859-1"
 		response.write("<tr><td colspan='2' align='center' bgcolor='#E4F2FC'><strong><font size='1pt'>Consolidado EEFF</font></strong></td><td bgcolor='#E4F2FC' align='right'>"&NivText&"</td></tr>")
 	end if
 
+
 	response.write("<tr bgcolor='#94B9FD'><td>NroOrden</td><td align='center'>Cuenta</td><td align='left'>Descripcion</td></tr>")
 	'CUENTAS BALANCE GENERAL
 	response.write("<tr bgcolor='#F2DCDB'><td></td><td align='center'></td><td align='left'><strong>Balance General</strong></td></tr>")
@@ -239,26 +242,16 @@ Response.Charset= "ISO-8859-1"
 	wend
 	rs02.Close
 	Set rs02=Nothing
-
-	'CUENTAS ESTADO DE FLUJO DE EFECTIVO
-	'response.write("<tr bgcolor='#F2DCDB'><td></td><td></td><td align='center'></td><td align='left'><strong>Estado de Flujo de Efectivo</strong></td></tr>")
-
-	'while not rs03.eof
-	''	response.write("<tr><td>"&rs03(0)&"</td><td>"&rs03(1)&"</td><td align='center'>"&rs03(2)&"</td><td align='left'>"&rs03(3)&"</td></tr>")
-    ''	rs03.MoveNext
-	'wend
-	'rs03.Close
-	'Set rs03=Nothing
-
-
 	response.write("</table></td>")
 
-	response.write("<td width='76%'  valign='top'><table class='tabla1' border='1'>")
+	response.write("<td width='76%'  valign='top'><table class='tabla1' border='0'>")
 
 
 	SQL="EXEC sp_lista_directorio_RepAnioTriMonMet_FONDOS '00','"&annio&"','"&trime&"','"&moneda&"','',"&detalle&",'"&TipFondo&"'"
+	'response.Write(SQL)
+	'response.End()
 
-	Set rs = Server.CreateObject("ADODB.Recordset")	
+	Set rs = Server.CreateObject("ADODB.Recordset")
 	rs.CursorLocation=3
 	rs.Open SQL, con
 
@@ -280,30 +273,24 @@ Response.Charset= "ISO-8859-1"
 		z=1
 	end if
 
-	format ="style='vnd.ms-excel.numberformat:0000;'"
-
+	'response.write("<tr>")
+	'response.write("<td bgcolor='#E3EEF7' colspan='3' rowspan='4' valign='middle'><div align='center'><strong>TOTALES</strong></div></td></td>")
+	'response.write("</tr>")
+	
 	for j=z to X1
+		'response.write("<tr>")
 
-		if j=0 then
-			format ="style='vnd.ms-excel.numberformat:000000;'"
-		elseif j=2 then
-			format ="style='vnd.ms-excel.numberformat:0000;'"
-		else
-			format =""
-		end if
-
-		response.write("<tr>")
 		for i=0 to Y1
 			if isnull(Tabla(i,j)) then
 				dato="&nbsp;"
 			else
 				dato=Tabla(i,j)
 			end if
-
-			if i Mod 2 = 0 then				
-				response.write("<td colspan='3' align='center' bgcolor='#FFE7BB' "&format&">"&dato&"</td>")
+				
+			if i Mod 2 = 0 then
+					response.write("<td colspan='3' align='center' bgcolor='#FFE7BB'>"&dato&"</td>")				
 			else
-				response.write("<td colspan='3' align='center' bgcolor='#E3EEF7' "&format&">"&dato&"</td>")
+					response.write("<td colspan='3' align='center' bgcolor='#E3EEF7'>"&dato&"</td>")				
 			end if
 
 		next
@@ -312,20 +299,14 @@ Response.Charset= "ISO-8859-1"
 
 	SQL01=" exec sp_lista_reporteDatos_Consolidado_RepAnioTrimMonMet_FONDOS '01','"&annio&"','"&trime&"','"&moneda&"','',"&detalle&",'"&TipFondo&"'"
 	SQL02=" exec sp_lista_reporteDatos_Consolidado_RepAnioTrimMonMet_FONDOS '02','"&annio&"','"&trime&"','"&moneda&"','',"&detalle&",'"&TipFondo&"'"
-	'SQL03=" exec sp_lista_reporteDatos_Consolidado_RepAnioTrimMonMet_FONDOS '03','"&annio&"','"&trime&"','"&moneda&"','',"&detalle&",'"&TipFondo&"'"
 
-
-	Set rs01 = Server.CreateObject("ADODB.Recordset")	
+	Set rs01 = Server.CreateObject("ADODB.Recordset")
 	rs01.CursorLocation=3
 	rs01.Open SQL01, con
-		
-	Set rs02 = Server.CreateObject("ADODB.Recordset")	
+
+	Set rs02 = Server.CreateObject("ADODB.Recordset")
 	rs02.CursorLocation=3
 	rs02.Open SQL02, con
-
-	'Set rs03 = Server.CreateObject("ADODB.Recordset")	
-	'rs03.CursorLocation=3
-	'rs03.Open SQL03, con
 
 	'BALANCE GENERAL
 	if rs01.fields.count>0 then
@@ -357,10 +338,10 @@ Response.Charset= "ISO-8859-1"
 					response.write("<td bgcolor='#94B9FD' align='center'><strong>"&dato&"</strong></td>")
 				else
 					if IsNumeric(dato) then
-						response.write("<td align='right' >"&Round(dato)&"</td>")	
+						response.write("<td align='right' >"&FormatNumber(dato,0)&"</td>")	
 					else
 						response.write("<td align='right' >"&dato&"</td>")
-					end if			
+					end if
 				end if
 			next
 			response.write("</tr>")
@@ -375,10 +356,11 @@ Response.Charset= "ISO-8859-1"
 
 		next
 
-		'CUENTAS ESTADO DE GANANCIAS Y PERDIDAS
+		'CUENTAS ESTADO DE GANANCIAS Y PERDIDAS ----------------------------------------------------------------------------------------------------------------------------------
 		X2=cint(rs02.fields.count)-1
 		'Y2=(cint(rs02.RecordCount )*1.5)-1
-		Y2=cint(rs02.RecordCount )-1
+		Y2=cint(rs02.RecordCount)-1
+
 
 		i=0
 		 while not rs02.eof
@@ -407,8 +389,9 @@ Response.Charset= "ISO-8859-1"
 				else
 					dato=Tabla1(i,j)
 				end if
+
 				if IsNumeric(dato) then
-					response.write("<td align='right' >"&Round(dato)&"</td>")	
+					response.write("<td align='right'>"&FormatNumber(dato,0)&"</td>")
 				else
 					response.write("<td align='right' >"&dato&"</td>")
 				end if
@@ -420,53 +403,9 @@ Response.Charset= "ISO-8859-1"
 			response.write("</tr>")
 
 		next
-
 	end if
 
-	'CUENTAS ESTADO DE FLUJO DE EFECTIVO
-	'X2=cint(rs03.fields.count)-1
-	'Y2=cint(rs03.RecordCount )-1
-
-	'i=0
-	'' while not rs03.eof
-	''   for j=0 to X2
-	''	Tabla1(i,j)=rs03(j)
-	''	next
-	''  rs03.MoveNext
-	''  i=i+1
-	'wend 
-	'rs03.Close
-	'Set rs03=Nothing
-	
-	'response.write("<tr>")
-	'for i=0 to Y2
-	''	response.write("<td bgcolor='#F2DCDB' align='center'>&nbsp;</td>")
-	'next
-	'response.write("</tr>")
-
-	'for j=1 to X2
-	''	response.write("<tr>")
-	''	for i=0 to Y2
-''
-''			if isnull(Tabla1(i,j)) then
-''				dato="&nbsp;"
-''			else
-''				dato=Tabla1(i,j)
-''			end if
-''
-''			if IsNumeric(dato) then
-''				response.write("<td align='right' >"&Round(dato)&"</td>")	
-''			else
-''				response.write("<td align='right' >"&dato&"</td>")
-''			end if
-''		next
-''		response.write("</tr>")
-''
-''	next
-
 	response.write("</table></td></tr></table>")
-	
-	response.write("</tr></table>")
 	
 	Response.ContentType = "application/save" 
 

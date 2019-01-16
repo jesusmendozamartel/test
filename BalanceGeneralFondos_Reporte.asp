@@ -46,9 +46,18 @@ Response.Charset= "ISO-8859-1"
 	SQL="EXEC sp_lista_directorio_RepAnioTriMonMet_FONDOS '01','"&annio&"','"&trime&"','"&moneda&"','',"&detalle&",'"&TipFondo&"'"
 	SQL2=" exec sp_lista_reporteDatos_RepAnioTrimMonMet_FONDOS '01','"&annio&"','"&trime&"','"&moneda&"','',"&detalle&",'"&TipFondo&"'"
 
+	'response.write(SQL)
+	'response.write(SQL2)
+	'response.end
+
 	Set rs = Server.CreateObject("ADODB.Recordset")	
 	rs.CursorLocation=3
     rs.Open sql, con
+
+	if rs.RecordCount=0 then
+		response.write("<div align='center'><p style='color:#000';><strong>¡No se encontraron datos!</strong></p></div>")
+		response.end
+	end if
 
 	X1=cint(RS.fields.count)-1
 	Y1=cint(rs.RecordCount )-1

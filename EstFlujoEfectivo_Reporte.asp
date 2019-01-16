@@ -55,6 +55,11 @@ Response.Charset= "ISO-8859-1"
 	rs.CursorLocation=3
     rs.Open sql, con
 
+	if rs.RecordCount=0 then
+		response.write("<div align='center'><p style='color:#000';><strong>¡No se encontraron datos!</strong></p></div>")
+		response.end
+	end if
+
 	X1=cint(RS.fields.count)-1
 	Y1=cint(rs.RecordCount )-1
 	 while not rs.eof

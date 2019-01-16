@@ -266,11 +266,38 @@ Response.Charset= "ISO-8859-1"
 
 
 	SQL="EXEC sp_lista_directorioefConsolidado_x_anio '01','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','S','"&detalle&"'"	
-		
+	SQL1="EXEC sp_lista_directorioefConsolidado_x_anio '02','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','S','"&detalle&"'"	
+	SQL2="EXEC sp_lista_directorioefConsolidado_x_anio '03','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','S','"&detalle&"'"	
+
 	Set rs = Server.CreateObject("ADODB.Recordset")	
 	rs.CursorLocation=3
 	rs.Open SQL, con
 
+	Set rs1 = Server.CreateObject("ADODB.Recordset")	
+	rs1.CursorLocation=3
+	rs1.Open SQL1, con
+	
+	Set rs2 = Server.CreateObject("ADODB.Recordset")	
+	rs2.CursorLocation=3
+	rs2.Open SQL2, con
+
+	'response.Write(SQL)
+	'response.Write(SQL1)
+	'response.Write(SQL2)
+
+	'response.Write(rs.RecordCount)
+	'response.Write(rs1.RecordCount)
+	'response.Write(rs2.RecordCount)
+
+	if (rs.RecordCount<>rs1.RecordCount or rs1.RecordCount<>rs2.RecordCount)  then
+		response.write("<div align='left'><p style='color:#000';><strong>¡ Los datos no se encuentran completos para mostrar un consolidado. !</strong></p></div>")
+		response.end
+	end if
+
+	if rs.RecordCount=0 then
+		response.write("<div align='left'><p style='color:#000';><strong>¡No se encontraron datos!</strong></p></div>")
+		response.end
+	end if
 
 	X1=cint(rs.fields.count)-1
 	Y1=cint(rs.RecordCount )-1

@@ -13,6 +13,11 @@
 	Set rs = Server.CreateObject("ADODB.Recordset")	
 	rs.CursorLocation=3
 	rs.Open SQL, con 
+	
+	if rs.RecordCount=0 then
+		response.write("<div align='center'><p style='color:#000';><strong>¡No se encontraron datos!</strong></p></div>")
+		response.end
+	end if
 
 	x=rs.Fields.Count-1
 	

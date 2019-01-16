@@ -17,12 +17,15 @@ Response.Charset= "ISO-8859-1"
 	rs.CursorLocation=3
    	rs.Open SQL, con
 	
+	'RESPONSE.Write(SQL)
+	'RESPONSE.End()
+
+
 	Response.Write("<tr class='a1'> Recuento: "&rs.RecordCount-1&"</tr>")
 	'rs.close		
 	'SQL="exec sp_lista_empresas_x_anio '"&reporte& "','"&annio& "' "
 	
-	'RESPONSE.Write(SQL)
-	'RESPONSE.End()
+
 
 '	rs.MoveNext
 	'rs.NextRecordset
