@@ -22,7 +22,9 @@
 	Set rs02 = Server.CreateObject("ADODB.Recordset")	
 	rs02.CursorLocation=3
 	rs02.Open SQL02, con
-
+	Response.Write("<table>")
+	Response.Write("<tr style='font-family: Arial, cursive, serif;font-size: 0.9em;'><td><strong>* Nota: El dato del año anterior es al 31 de Diciembre de ese mismo año.</strong></td></tr>")
+	Response.Write("</table>")
 	response.write("<table width='50%' border='0' cellspacing='0' cellpadding='0'><tr><td width='24%' valign='top'><table  class='tabla1'  border='1'>")
 
 	if detalle =0 then
