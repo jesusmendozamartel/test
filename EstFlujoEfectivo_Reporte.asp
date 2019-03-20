@@ -52,6 +52,10 @@ Response.Charset= "ISO-8859-1"
 
 	SQL="EXEC sp_lista_directorio_RepAnioTriNivMonLetMetSup '03','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','"&metodo&"','S','"&detalle&"'"
 	SQL2=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '03','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','"&metodo&"','S','"&detalle&"'"
+	'response.Write(SQL)
+	'response.Write(SQL2)
+	'response.End()
+
 
 	Set rs = Server.CreateObject("ADODB.Recordset")	
 	rs.CursorLocation=3

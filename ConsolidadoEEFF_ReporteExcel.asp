@@ -171,7 +171,8 @@ Response.Charset= "ISO-8859-1"
 	
 	SQL01=" exec sp_lista_cuentas_reporte_x_RepAnioTrime '01','"&annio&"','"&trime&"','"&letra&"','S'"
 	SQL02=" exec sp_lista_cuentas_reporte_x_RepAnioTrime '02','"&annio&"','"&trime&"','"&letra&"','S'"
-	SQL03=" exec sp_lista_cuentas_reporte_x_RepAnioTrime '03','"&annio&"','"&trime&"','"&letra&"','S'"
+	'SQL03=" exec sp_lista_cuentas_reporte_x_RepAnioTrime '03','"&annio&"','"&trime&"','"&letra&"','S'"
+	SQL03=" exec sp_lista_cuentas_RepAnioTrimLetSup '03','"&annio&"','"&trime&"','"&letra&"','Directo','S'"
 
 	Set rs01 = Server.CreateObject("ADODB.Recordset")
 	rs01.CursorLocation=3
@@ -215,6 +216,9 @@ Response.Charset= "ISO-8859-1"
 	Response.Charset = "UTF-8"
 	Response.Write("<table ><tr><td colspan='10' align='center'  style=""font-family:Arial, Helvetica, sans-serif; font-size:20px; color:#003300"">"&Titulo&"</td></tr><tr><td>&nbsp;&nbsp;</td></tr><tr>")
 
+	Response.Write("<table>")
+	Response.Write("<tr style='font-family: Arial, cursive, serif;font-size: 0.9em;'><td><strong>* Nota: El dato del año anterior es al 31 de Diciembre de ese mismo año.</strong></td></tr>")
+	Response.Write("</table>")
 	 response.write("<table width='50%' border='1' cellspacing='0' cellpadding='0'><tr><td width='24%' valign='top'><table  class='tabla1'  border='1'>")
 
 	if detalle =0 then
@@ -267,7 +271,7 @@ Response.Charset= "ISO-8859-1"
 
 	SQL="EXEC sp_lista_directorioefConsolidado_x_anio '01','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','S','"&detalle&"'"	
 	SQL1="EXEC sp_lista_directorioefConsolidado_x_anio '02','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','S','"&detalle&"'"	
-	SQL2="EXEC sp_lista_directorioefConsolidado_x_anio '03','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','S','"&detalle&"'"	
+	SQL2="EXEC sp_lista_directorio_RepAnioTriNivMonLetMetSup '03','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S','"&detalle&"'"
 
 	Set rs = Server.CreateObject("ADODB.Recordset")	
 	rs.CursorLocation=3
@@ -343,7 +347,7 @@ Response.Charset= "ISO-8859-1"
 
 	SQL01=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '01','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S',"&detalle
 	SQL02=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '02','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S',"&detalle
-	SQL03=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '03','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S',"&detalle&",1"
+	SQL03=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '03','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S','"&detalle&"'"
 
 	Set rs01 = Server.CreateObject("ADODB.Recordset")	
 	rs01.CursorLocation=3

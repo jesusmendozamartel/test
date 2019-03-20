@@ -13,7 +13,7 @@
 	niv=Request.QueryString("niv")
 	SQL = ""
 
-	tabla ="SMVMA_ESTGP"
+	tabla ="SMVMA_BALGEN"
 	if eeff="01" then
 		tabla="SMVMA_BALGEN"
 	elseif eeff="02" then

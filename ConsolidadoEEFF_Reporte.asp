@@ -13,7 +13,7 @@
 '--------------------------------------------------------------- CUENTAS ------------------------------------------------------------------------------------------
 	SQL01=" exec sp_lista_cuentas_reporte_x_RepAnioTrime '01','"&annio&"','"&trime&"','"&letra&"','S'"
 	SQL02=" exec sp_lista_cuentas_reporte_x_RepAnioTrime '02','"&annio&"','"&trime&"','"&letra&"','S'"
-	SQL03=" exec sp_lista_cuentas_reporte_x_RepAnioTrime '03','"&annio&"','"&trime&"','"&letra&"','S'"
+	SQL03=" exec sp_lista_cuentas_RepAnioTrimLetSup '03','"&annio&"','"&trime&"','"&letra&"','Directo','S'"
 	'response.Write(SQL01)
 	'response.Write(SQL02)
 	'response.Write(SQL03)
@@ -41,6 +41,10 @@
 	elseif nivel =11 then
 		NivText="ACTIVIDAD 14"
 	end if
+
+	Response.Write("<table>")
+	Response.Write("<tr style='font-family: Arial, cursive, serif;font-size: 0.9em;'><td><strong>* Nota: El dato del año anterior es al 31 de Diciembre de ese mismo año.</strong></td></tr>")
+	Response.Write("</table>")
 
 	response.write("<table width='50%' border='0' cellspacing='0' cellpadding='0'><tr><td width='24%' valign='top'><table  class='tabla1'  border='1'>")
 
@@ -92,7 +96,7 @@
 
 	SQL="EXEC sp_lista_directorioefConsolidado_x_anio '01','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','S','"&detalle&"'"	
 	SQL1="EXEC sp_lista_directorioefConsolidado_x_anio '02','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','S','"&detalle&"'"	
-	SQL2="EXEC sp_lista_directorioefConsolidado_x_anio '03','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','S','"&detalle&"'"	
+	SQL2="EXEC sp_lista_directorio_RepAnioTriNivMonLetMetSup '03','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S','"&detalle&"'"
 
 	Set rs = Server.CreateObject("ADODB.Recordset")	
 	rs.CursorLocation=3
@@ -109,15 +113,12 @@
 	'response.Write(SQL)
 	'response.Write(SQL1)
 	'response.Write(SQL2)
+	'response.end
 
-	'response.Write(rs.RecordCount)
-	'response.Write(rs1.RecordCount)
-	'response.Write(rs2.RecordCount)
-
-	if (rs.RecordCount<>rs1.RecordCount or rs1.RecordCount<>rs2.RecordCount)  then
-		response.write("<div align='left'><p style='color:#000';><strong>¡ Los datos no se encuentran completos para mostrar un consolidado. !</strong></p></div>")
-		response.end
-	end if
+	'if (rs.RecordCount<>rs1.RecordCount or rs1.RecordCount<>rs2.RecordCount)  then
+	'	response.write("<div align='left'><p style='color:#000';><strong>¡ Los datos no se encuentran completos para mostrar un consolidado. !</strong></p></div>")
+	'	response.end
+	'end if
 
 	if rs.RecordCount=0 then
 		response.write("<div align='left'><p style='color:#000';><strong>¡No se encontraron datos!</strong></p></div>")
@@ -156,7 +157,9 @@
 '----------------------------------------------------------- DATOS ----------------------------------------------------------------------------------------------
 	SQL01=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '01','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S',"&detalle
 	SQL02=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '02','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S',"&detalle
-	SQL03=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '03','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S',"&detalle&",1"
+	'SQL03=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '03','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S',"&detalle&",1"
+
+	SQL03=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '03','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S','"&detalle&"'"
 
 'RESPONSE.Write(SQL01)
 'RESPONSE.Write(SQL02)

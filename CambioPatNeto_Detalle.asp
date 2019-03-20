@@ -7,6 +7,8 @@
 	CodiEnt=Request.QueryString("CodiEnt")
 	
 	SQL="EXEC sp_lista_DetalleCamPat_AnioCodiEnt "&annio&",'"&trime&"','"&CodiEnt&"'"
+	'Response.Write(SQL)
+	'Response.end
 
 	Set rs = Server.CreateObject("ADODB.Recordset")	
 
@@ -19,7 +21,7 @@
 	Response.Write("<td align='left'>Codigo Entidad: "&rs(0)&"</td>")
 	Response.Write("<td align='left'>RUC: "&rs(1)&"</td>")
 	Response.Write("<td align='left'>RAZÓN SOCIAL: "&rs(2)&"</td>")
-	Response.Write("<td align='left'>Ciiu_R4_4d: "&rs(3)&"</td>")
+	Response.Write("<td align='left'>Ciiu_R4_4d: "&rs(3)&"</td>") 
 	Response.Write("<td align='left'>AE: "&rs(4)&"</td>")
 	Response.Write("<td align='left'>DESCRIPCIÓN AE: "&rs(5)&"</td>")
 	Response.Write("<td align='left'>SI: "&rs(6)&"</td>")

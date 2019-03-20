@@ -216,6 +216,7 @@ a.a3 {
         <option value="10" >Nv AE 54</option>
         <option value="11" >Nv AE 14</option>
         <option value="6" >Nv SI</option>
+				<option value="12">Tipo Entidad</option>
         <option value="0" >TODOS</option>
     </select>
    
