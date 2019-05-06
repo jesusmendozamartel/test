@@ -13,10 +13,13 @@
 '--------------------------------------------------------------- CUENTAS ------------------------------------------------------------------------------------------
 	SQL01=" exec sp_lista_cuentas_reporte_x_RepAnioTrime '01','"&annio&"','"&trime&"','"&letra&"','S'"
 	SQL02=" exec sp_lista_cuentas_reporte_x_RepAnioTrime '02','"&annio&"','"&trime&"','"&letra&"','S'"
-	SQL03=" exec sp_lista_cuentas_RepAnioTrimLetSup '03','"&annio&"','"&trime&"','"&letra&"','Directo','S'"
+	SQL03=" exec sp_lista_cuentas_reporte_x_RepAnioTrime '03','"&annio&"','"&trime&"','"&letra&"','S'"
+	SQL05=" exec sp_lista_cuentas_reporte_x_RepAnioTrime '05','"&annio&"','"&trime&"','"&letra&"','S'"
+	
+	'SQL03=" exec sp_lista_cuentas_RepAnioTrimLetSup '03','"&annio&"','"&trime&"','"&letra&"','Directo','S'"
 	'response.Write(SQL01)
 	'response.Write(SQL02)
-	'response.Write(SQL03)
+	'response.Write(SQL05)
 	'response.End()
 	
 	Set rs01 = Server.CreateObject("ADODB.Recordset")
@@ -30,6 +33,10 @@
 	Set rs03 = Server.CreateObject("ADODB.Recordset")	
 	rs03.CursorLocation=3
 	rs03.Open SQL03, con
+
+	Set rs05 = Server.CreateObject("ADODB.Recordset")	
+	rs05.CursorLocation=3
+	rs05.Open SQL05, con
 
 	NivText=	""
 	if nivel =5 then
@@ -89,6 +96,16 @@
 	rs03.Close
 	Set rs03=Nothing
 
+	'CUENTAS CONSOLIDADO DE EEFF
+	response.write("<tr bgcolor='#F2DCDB'><td></td><td align='center'></td><td align='left'><strong>Consistencias Contables</strong></td></tr>")
+
+	while not rs05.eof
+		response.write("<tr><td>"&rs05(0)&"</td><td align='center'></td><td align='left'>"&rs05(1)&"</td></tr>")
+    	rs05.MoveNext
+	wend
+	rs05.Close
+	Set rs05=Nothing
+
 
 	response.write("</table></td>")
 '-------------------------------------------------------------------CABECERA---------------------------------------------------------------------------------------
@@ -105,16 +122,14 @@
 	Set rs1 = Server.CreateObject("ADODB.Recordset")	
 	rs1.CursorLocation=3
 	rs1.Open SQL1, con
-	
+
 	Set rs2 = Server.CreateObject("ADODB.Recordset")	
 	rs2.CursorLocation=3
 	rs2.Open SQL2, con
-
 	'response.Write(SQL)
 	'response.Write(SQL1)
 	'response.Write(SQL2)
 	'response.end
-
 	'if (rs.RecordCount<>rs1.RecordCount or rs1.RecordCount<>rs2.RecordCount)  then
 	'	response.write("<div align='left'><p style='color:#000';><strong>¡ Los datos no se encuentran completos para mostrar un consolidado. !</strong></p></div>")
 	'	response.end
@@ -154,16 +169,17 @@
 		next
 		 	response.write("</tr>")
 	next
-'----------------------------------------------------------- DATOS ----------------------------------------------------------------------------------------------
+'----------------------------------------------------------- DATOS ---------------------------------------------------------------------------------------------------------
 	SQL01=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '01','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S',"&detalle
 	SQL02=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '02','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S',"&detalle
-	'SQL03=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '03','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S',"&detalle&",1"
-
-	SQL03=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '03','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S','"&detalle&"'"
+	SQL03=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '03','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S',"&detalle&",1"
+	SQL05=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '05','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S',"&detalle
+	
 
 'RESPONSE.Write(SQL01)
 'RESPONSE.Write(SQL02)
-'RESPONSE.Write(SQL03)'
+'RESPONSE.Write(SQL03)
+'RESPONSE.Write(SQL05)
 'RESPONSE.End()
 
 	Set rs01 = Server.CreateObject("ADODB.Recordset")
@@ -177,6 +193,10 @@
 	Set rs03 = Server.CreateObject("ADODB.Recordset")	
 	rs03.CursorLocation=3
 	rs03.Open SQL03, con
+
+	Set rs05 = Server.CreateObject("ADODB.Recordset")	
+	rs05.CursorLocation=3
+	rs05.Open SQL05, con
 
 	'BALANCE GENERAL
 	if rs01.fields.count>0 then
@@ -314,7 +334,51 @@
 		response.write("</tr>")
 
 	next
+	'----------------------------------------------
 
+	'CUENTAS DEL CONSOLIDADO EMPRESAS
+	X2=cint(rs05.fields.count)-1
+	Y2=cint(rs05.RecordCount )-1
+
+	i=0
+	 while not rs05.eof
+	   for j=0 to X2
+		Tabla1(i,j)=rs05(j)
+		next
+	  rs05.MoveNext
+	  i=i+1
+	wend 
+	rs05.Close
+	Set rs05=Nothing
+	
+
+	response.write("<tr>")
+	for i=0 to Y2
+		response.write("<td bgcolor='#F2DCDB' align='center'>&nbsp;</td>")
+	next
+	response.write("</tr>")
+
+	for j=1 to X2
+		response.write("<tr>")
+		for i=0 to Y2
+
+			if isnull(Tabla1(i,j)) then
+				dato="&nbsp;"
+			else
+				dato=Tabla1(i,j)
+			end if
+
+			if IsNumeric(dato) then
+				response.write("<td align='right' >"&FormatNumber(dato,0)&"</td>")	
+			else
+				response.write("<td align='right' >"&dato&"</td>")
+			end if
+		next
+		response.write("</tr>")
+
+	next
+
+	'----------------------------------------------
 	response.write("</table></td></tr></table>")
 	
 %>
