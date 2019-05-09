@@ -14,11 +14,13 @@
 	SQL01=" exec sp_lista_cuentas_reporte_x_RepAnioTrime '01','"&annio&"','"&trime&"','"&letra&"','S'"
 	SQL02=" exec sp_lista_cuentas_reporte_x_RepAnioTrime '02','"&annio&"','"&trime&"','"&letra&"','S'"
 	SQL03=" exec sp_lista_cuentas_reporte_x_RepAnioTrime '03','"&annio&"','"&trime&"','"&letra&"','S'"
+	SQL06=" exec sp_lista_cuentas_reporte_x_RepAnioTrime '06','"&annio&"','"&trime&"','"&letra&"','S'"
 	SQL05=" exec sp_lista_cuentas_reporte_x_RepAnioTrime '05','"&annio&"','"&trime&"','"&letra&"','S'"
 	
 	'SQL03=" exec sp_lista_cuentas_RepAnioTrimLetSup '03','"&annio&"','"&trime&"','"&letra&"','Directo','S'"
 	'response.Write(SQL01)
 	'response.Write(SQL02)
+	'response.Write(SQL03)
 	'response.Write(SQL05)
 	'response.End()
 	
@@ -33,6 +35,10 @@
 	Set rs03 = Server.CreateObject("ADODB.Recordset")	
 	rs03.CursorLocation=3
 	rs03.Open SQL03, con
+
+	Set rs06 = Server.CreateObject("ADODB.Recordset")	
+	rs06.CursorLocation=3
+	rs06.Open SQL06, con
 
 	Set rs05 = Server.CreateObject("ADODB.Recordset")	
 	rs05.CursorLocation=3
@@ -95,6 +101,16 @@
 	wend
 	rs03.Close
 	Set rs03=Nothing
+
+	'CUENTAS DE DIVIDENDOS DECLARADOS
+	response.write("<tr bgcolor='#F2DCDB'><td></td><td align='center'></td><td align='left'><strong>Dividendos Declarados</strong></td></tr>")
+
+	while not rs06.eof
+		response.write("<tr><td>"&rs06(2)&"</td><td align='center'>"&rs06(0)&"</td><td align='left'>"&rs06(3)&"</td></tr>")
+    	rs06.MoveNext
+	wend
+	rs06.Close
+	Set rs06=Nothing
 
 	'CUENTAS CONSOLIDADO DE EEFF
 	response.write("<tr bgcolor='#F2DCDB'><td></td><td align='center'></td><td align='left'><strong>Consistencias Contables</strong></td></tr>")
@@ -173,14 +189,16 @@
 	SQL01=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '01','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S',"&detalle
 	SQL02=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '02','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S',"&detalle
 	SQL03=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '03','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S',"&detalle&",1"
+	SQL06=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '06','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S',"&detalle
 	SQL05=" exec sp_lista_reporteDatos_RepAnioTrimNilMonLetMetSup '05','"&annio&"','"&trime&"','"&nivel&"','"&codigo&"','"&moneda&"','"&letra&"','Directo','S',"&detalle
 	
 
-'RESPONSE.Write(SQL01)
-'RESPONSE.Write(SQL02)
-'RESPONSE.Write(SQL03)
-'RESPONSE.Write(SQL05)
-'RESPONSE.End()
+	'RESPONSE.Write(SQL01)
+	'RESPONSE.Write(SQL02)
+	'RESPONSE.Write(SQL03)
+	'RESPONSE.Write(SQL06)
+	'RESPONSE.Write(SQL05)
+	'RESPONSE.End()
 
 	Set rs01 = Server.CreateObject("ADODB.Recordset")
 	rs01.CursorLocation=3
@@ -193,6 +211,10 @@
 	Set rs03 = Server.CreateObject("ADODB.Recordset")	
 	rs03.CursorLocation=3
 	rs03.Open SQL03, con
+
+	Set rs06 = Server.CreateObject("ADODB.Recordset")
+	rs06.CursorLocation=3
+	rs06.Open SQL06, con
 
 	Set rs05 = Server.CreateObject("ADODB.Recordset")	
 	rs05.CursorLocation=3
@@ -293,6 +315,7 @@
 
 		next
 	end if
+
 	'CUENTAS ESTADO DE FLUJO DE EFECTIVO
 	X2=cint(rs03.fields.count)-1
 	Y2=cint(rs03.RecordCount )-1
@@ -334,8 +357,46 @@
 		response.write("</tr>")
 
 	next
-	'----------------------------------------------
+'---------------------------------------------
+	'CUENTAS DE CAMBIOS EN EL PATRIMONIO
+		X2=cint(rs06.fields.count)-1
+		Y2=cint(rs06.RecordCount)-1
+		i=0
+		 while not rs06.eof
+		   for j=0 to X2
+			 Tabla1(i,j)=rs06(j)
+			next
+		  rs06.MoveNext
+		  i=i+1
+		wend 
+		rs06.Close
+		Set rs06=Nothing
 
+		response.write("<tr>")
+		for i=1 to (Y2+1)*1.5
+			response.write("<td bgcolor='#F2DCDB' align='center'>&nbsp;</td>")
+		next
+		response.write("</tr>")
+		for j=1 to X2
+			response.write("<tr>")
+			for i=0 to Y2
+				if isnull(Tabla1(i,j)) then
+					dato="&nbsp;"
+				else
+					dato=Tabla1(i,j)
+				end if
+				if IsNumeric(dato) then
+					response.write("<td align='right'>"&FormatNumber(dato,0)&"</td>")
+				else
+					response.write("<td align='right' >"&dato&"</td>")
+				end if
+				if i mod 2 <>0 then
+					response.write("<td align='right' >&nbsp;</td>")
+				end if
+			next
+			response.write("</tr>")
+		next
+'----------------------------------------------
 	'CUENTAS DEL CONSOLIDADO EMPRESAS
 	X2=cint(rs05.fields.count)-1
 	Y2=cint(rs05.RecordCount )-1
